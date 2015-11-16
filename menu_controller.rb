@@ -14,7 +14,8 @@ require_relative '../models/address_book.rb'
      puts "2 - Create an entry"
      puts "3 - Search for an entry"
      puts "4 - Import entries from a CSV"
-     puts "5 - Exit"
+     puts "5 - View Entry Number(n)"
+     puts "6 - Exit"
      print "Enter your selection: "
  # #3
      selection = gets.to_i
@@ -38,7 +39,11 @@ require_relative '../models/address_book.rb'
        read_csv
        main_menu
      when 5
-       puts "Good-bye!"
+       system "clear" 
+       entry_n_submenu
+       main_menu
+     when 6
+       puts "Good-bye!"  
  # #8
        exit(0)
  # #9
@@ -85,6 +90,21 @@ require_relative '../models/address_book.rb'
    end
  
    def read_csv
+   end
+   
+   def entry_n_submenu
+    print "Entry number to view: "
+    selection = gets.chomp.to_i
+    
+    if selection < @address_book.entries.count
+     puts @address_book.entries[selection]
+     puts "Press enter to return to the main menu"
+     gets.chomp
+     system "clear"
+    else
+     puts "#{selection} is invalid input please try again"
+     entry_n_submenu
+    end 
    end
    
    def entry_submenu(entry)
